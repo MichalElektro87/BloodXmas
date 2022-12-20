@@ -1,0 +1,75 @@
+sim_guard.png
+size: 237, 505
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+arm
+  rotate: false
+  xy: 156, 268
+  size: 79, 235
+  orig: 79, 235
+  offset: 0, 0
+  index: -1
+corps
+  rotate: false
+  xy: 118, 114
+  size: 103, 152
+  orig: 103, 152
+  offset: 0, 0
+  index: -1
+eye
+  rotate: false
+  xy: 2, 2
+  size: 25, 25
+  orig: 25, 25
+  offset: 0, 0
+  index: -1
+gear
+  rotate: false
+  xy: 29, 2
+  size: 45, 41
+  orig: 45, 41
+  offset: 0, 0
+  index: -1
+hand
+  rotate: false
+  xy: 155, 54
+  size: 78, 58
+  orig: 78, 58
+  offset: 0, 0
+  index: -1
+head
+  rotate: false
+  xy: 2, 268
+  size: 152, 152
+  orig: 152, 152
+  offset: 0, 0
+  index: -1
+leg1
+  rotate: false
+  xy: 2, 114
+  size: 56, 112
+  orig: 56, 112
+  offset: 0, 0
+  index: -1
+leg2
+  rotate: false
+  xy: 60, 114
+  size: 56, 112
+  orig: 56, 112
+  offset: 0, 0
+  index: -1
+shadow
+  rotate: false
+  xy: 2, 54
+  size: 151, 56
+  orig: 151, 56
+  offset: 0, 0
+  index: -1
+target
+  rotate: false
+  xy: 76, 2
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
