@@ -1,0 +1,12 @@
+misc.png
+size: 247, 141
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+clouds
+  rotate: false
+  xy: 1, 1
+  size: 245, 139
+  orig: 245, 139
+  offset: 0, 0
+  index: -1

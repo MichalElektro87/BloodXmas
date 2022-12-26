@@ -49,8 +49,9 @@ public class TitleScreen implements Screen {
                 {
                     if (!(e instanceof InputEvent) || !((InputEvent)e).getType().equals(InputEvent.Type.touchDown))
                         return false;
-
-                    game.setScreen(new IntroScreen(game));
+                    startButton.remove();
+                    exitButton.remove();
+                    game.setScreen(new GameScreen1(game));
                     return false;
                 }
         );
@@ -61,6 +62,7 @@ public class TitleScreen implements Screen {
                     if (!(e instanceof InputEvent) || !((InputEvent)e).getType().equals(InputEvent.Type.touchDown))
                         return false;
 
+                    exitButton.remove();
                     Gdx.app.exit();
                     return false;
                 }

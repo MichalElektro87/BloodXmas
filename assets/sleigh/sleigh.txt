@@ -1,0 +1,12 @@
+sleigh.png
+size: 291, 93
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+sleigh
+  rotate: false
+  xy: 1, 1
+  size: 289, 91
+  orig: 289, 91
+  offset: 0, 0
+  index: -1

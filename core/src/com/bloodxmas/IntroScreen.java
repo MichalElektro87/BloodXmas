@@ -64,7 +64,6 @@ public class IntroScreen implements Screen {
     public void render(float delta) {
 
         ScreenUtils.clear(0.3f, 0.3f, 0.3f, 1);
-        stage.getCamera().update();
         stage.act();
         stage.draw();
 

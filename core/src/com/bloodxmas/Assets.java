@@ -20,5 +20,7 @@ public class Assets {
 
     public void loadAssetsManager() {
         assetManager.load("sim_guard/sim_guard.txt",TextureAtlas.class);
+        assetManager.load("misc/misc.txt",TextureAtlas.class);
+        assetManager.load("sleigh/sleigh.txt",TextureAtlas.class);
     }
 }
