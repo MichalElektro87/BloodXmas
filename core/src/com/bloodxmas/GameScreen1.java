@@ -97,6 +97,7 @@ public class GameScreen1 implements Screen {
             }
             sleigh.addAction(Actions.after(Actions.sequence(Actions.rotateBy(40f,0.5f))));
             sleigh.addAction(Actions.after(Actions.moveBy(0f,-700f,3f, Interpolation.swing)));
+            sleigh.addAction(Actions.after(Actions.run(()-> game.setScreen(new PlayScreen(game)))));
         }
 
         else santaDialog.setText("");

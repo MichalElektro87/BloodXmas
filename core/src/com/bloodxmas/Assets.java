@@ -22,5 +22,6 @@ public class Assets {
         assetManager.load("sim_guard/sim_guard.txt",TextureAtlas.class);
         assetManager.load("misc/misc.txt",TextureAtlas.class);
         assetManager.load("sleigh/sleigh.txt",TextureAtlas.class);
+        assetManager.load("background/background.txt",TextureAtlas.class);
     }
 }

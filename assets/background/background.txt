@@ -1,0 +1,12 @@
+background.png
+size: 4004, 484
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+background
+  rotate: false
+  xy: 1, 1
+  size: 4002, 482
+  orig: 4002, 482
+  offset: 0, 0
+  index: -1
