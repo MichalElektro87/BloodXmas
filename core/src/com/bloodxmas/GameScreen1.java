@@ -1,7 +1,6 @@
 package com.bloodxmas;
 
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -15,9 +14,7 @@ public class GameScreen1 implements Screen {
     private final BloodXmas game;
     private Stage stage;
     private TextureAtlas miscTextureAtlas;
-    private TextureAtlas sleighTextureAtlas;
     private Array<Cloud> clouds;
-    private Sleigh sleigh;
     private SantaDialog santaDialog;
     private boolean enableStageAction1 = false;
     private float red = 0.3f, green = 0.1f, blue = 0.7f, alpha = 1;
@@ -26,11 +23,9 @@ public class GameScreen1 implements Screen {
         this.game = game;
         stage = new Stage(new FitViewport(800f, 480f));
         miscTextureAtlas = game.assets.getAssetManager().get("misc/misc.txt",TextureAtlas.class);
-        sleighTextureAtlas = game.assets.getAssetManager().get("sleigh/sleigh.txt",TextureAtlas.class);
         clouds = new Array<>();
-        sleigh = new Sleigh();
-        sleigh.setTexture(sleighTextureAtlas.findRegion("sleigh"));
-        sleigh.setPosition(game.screenWidth / 2 - sleigh.getWidth() / 2, game.screenHeight/2 - sleigh.getHeight());
+
+        game.santa.setPosition(game.screenWidth / 2 - game.santa.getWidth() / 2, game.screenHeight/2 - game.santa.getHeight());
 
         for (int i = 0; i < 5; ++i) {
             clouds.add(new Cloud(game));
@@ -38,9 +33,9 @@ public class GameScreen1 implements Screen {
             stage.addActor(clouds.get(i));
         }
 
-        stage.addActor(sleigh);
+        stage.addActor(game.santa);
 
-        santaDialog = new SantaDialog(game, sleigh);
+        santaDialog = new SantaDialog(game, game.santa);
         santaDialog.resetDialogBox();
 
         stage.addActor(santaDialog);
@@ -91,13 +86,13 @@ public class GameScreen1 implements Screen {
 
         else if (santaDialog.getElapsedTime() > 46f && !enableStageAction1) {
             enableStageAction1=true;
-            sleigh.clearActions();
+            game.santa.clearActions();
             for (int i = 0; i < stage.getActors().size; ++i) {
                 stage.getActors().get(i).addAction(Actions.repeat(4,Actions.sequence(Actions.moveBy(10f,10f,0.1f), Actions.moveBy(-10f,-10f,0.1f))));
             }
-            sleigh.addAction(Actions.after(Actions.sequence(Actions.rotateBy(40f,0.5f))));
-            sleigh.addAction(Actions.after(Actions.moveBy(0f,-700f,3f, Interpolation.swing)));
-            sleigh.addAction(Actions.after(Actions.run(()-> game.setScreen(new PlayScreen(game)))));
+            game.santa.addAction(Actions.after(Actions.sequence(Actions.rotateBy(40f,0.5f))));
+            game.santa.addAction(Actions.after(Actions.moveBy(0f,-700f,3f, Interpolation.swing)));
+            game.santa.addAction(Actions.after(Actions.run(()-> game.setScreen(new PlayScreen(game)))));
         }
 
         else santaDialog.setText("");

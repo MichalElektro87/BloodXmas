@@ -31,6 +31,12 @@ public class TitleScreen implements Screen {
     public TitleScreen(final BloodXmas game) {
         this.game = game;
         stage = new Stage(new FitViewport(800f,480f));
+
+        game.player = new Player(game);
+        game.santa = new Santa(game);
+
+        game.player.setAnimation();
+        game.santa.setAnimation();
         titleSign = new TitleSign(game);
         titleSign.setFont(new BitmapFont(Gdx.files.internal("font/radiospace_red.fnt")));
 
@@ -62,6 +68,7 @@ public class TitleScreen implements Screen {
                     if (!(e instanceof InputEvent) || !((InputEvent)e).getType().equals(InputEvent.Type.touchDown))
                         return false;
 
+                    startButton.remove();
                     exitButton.remove();
                     Gdx.app.exit();
                     return false;

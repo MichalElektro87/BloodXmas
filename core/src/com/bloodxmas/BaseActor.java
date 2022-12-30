@@ -1,6 +1,7 @@
 package com.bloodxmas;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -10,10 +11,12 @@ import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Intersector;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.utils.viewport.Viewport;
 
 public class BaseActor extends Actor {
 
@@ -22,16 +25,22 @@ public class BaseActor extends Actor {
     private Animation<TextureRegion> animationSingle;
     private Polygon boundaryPolygon;
     private Stage stage;
+    private float animDuration[];
+    private float elapsedTime = 0.0f;
+    private float x1, y1, x2, y2;
+    private float xVelocity = 1f;
+    private float yVelocity = 1f;
+    private int currentAnimation = 0;
     private boolean isAnimSet = false;
     private boolean isAnimSingleSet = false;
     private boolean isTextureSet = false;
     private boolean isTextSet = false;
-    private int currentAnimation = 0;
-    private float animDuration[];
-    private float elapsedTime = 0.0f;
-    private float x1, y1, x2, y2;
+    private boolean attackBlock = false;
+    private boolean directionLeft = true;
+    private boolean enableControls = false;
 
     private final Rectangle rectangle;
+    private Rectangle worldBounds;
     private BitmapFont font;
     private String text;
     private GlyphLayout glyphLayout;
@@ -49,7 +58,7 @@ public class BaseActor extends Actor {
         this.text = text;
         isTextSet = true;
     }
-    public void setActualStage(Stage stage) {
+    public void setStage(Stage stage) {
         this.stage = stage;
     }
     public Stage getStage () {
@@ -97,7 +106,7 @@ public class BaseActor extends Actor {
         animation = new Animation[textureAtlas.length];
 
         for (int i = 0; i < textureAtlas.length; i++) {
-            animation[i] = new Animation<TextureRegion>(animDuration[i], textureAtlas[i].getRegions());
+            animation[i] = new Animation(animDuration[i], textureAtlas[i].getRegions());
         }
         setSize(animation[0].getKeyFrame(0.0f).getRegionWidth(), animation[0].getKeyFrame(0.0f).getRegionHeight());
         rectangle.setSize(animation[0].getKeyFrame(0.0f).getRegionWidth(), animation[0].getKeyFrame(0.0f).getRegionHeight());
@@ -106,8 +115,10 @@ public class BaseActor extends Actor {
             setBoundaryRectangle();
 
         this.animDuration = animDuration;
+    }
 
-
+    public Animation getAnimation (int num) {
+        return animation[num];
     }
 
     public void setAnimationFromTextureAtlas(TextureAtlas textureAtlas, float animDuration){
@@ -238,6 +249,83 @@ public class BaseActor extends Actor {
 
     public float getY2() {
         return y2;
+    }
+
+    public float getXVelocity() {
+        return xVelocity;
+    }
+
+    public void setXVelocity(float xVelocity) {
+        this.xVelocity = xVelocity;
+    }
+
+    public float getYVelocity() {
+        return yVelocity;
+    }
+
+    public void setYVelocity(float yVelocity) {
+        this.yVelocity = yVelocity;
+    }
+
+    public boolean isAttackBlock() {
+        return attackBlock;
+    }
+
+    public void setAttackBlock(boolean attackBlock) {
+        this.attackBlock = attackBlock;
+    }
+
+    public boolean isDirectionLeft() {
+        return directionLeft;
+    }
+
+    public void setDirectionLeft(boolean directionLeft) {
+        this.directionLeft = directionLeft;
+    }
+
+    public void boundToWorld() {
+
+        if (isEnableControls()) {
+
+            if (getX() < 0f)
+                setX(0f);
+            if (getX() + getWidth() > getWorldBounds().getWidth())
+                setX(getWorldBounds().getWidth() - getWidth());
+            if (getY() < 0f)
+                setY(0f);
+            if (getY() + getHeight() > getWorldBounds().getHeight())
+                setY(getWorldBounds().getHeight() - getHeight());
+        }
+    }
+
+    public void alignTheCamera() {
+        Camera cam = getStage().getCamera();
+        Viewport v = getStage().getViewport();
+        cam.position.set(getX() + getOriginX(),getY() + getOriginY(), 0);
+        cam.position.x = MathUtils.clamp(cam.position.x, cam.viewportWidth / 2,
+                getWorldBounds().width - cam.viewportWidth/2);
+        cam.position.y = MathUtils.clamp(cam.position.y, cam.viewportHeight / 2, getWorldBounds().getHeight() - cam.viewportHeight/2);
+        cam.update();
+    }
+
+    public void setWorldBounds (float width, float height) {
+        worldBounds = new Rectangle(0,0, width, height);
+    }
+
+    public void setWorldBounds (BaseActor ba) {
+        setWorldBounds(ba.getWidth(), ba.getHeight());
+    }
+
+    public Rectangle getWorldBounds () {
+        return worldBounds;
+    }
+
+    public boolean isEnableControls() {
+        return enableControls;
+    }
+
+    public void setEnableControls(boolean enableControls) {
+        this.enableControls = enableControls;
     }
 
 

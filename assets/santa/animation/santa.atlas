@@ -1,0 +1,19 @@
+santa.png
+size: 582, 93
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+sleigh
+  rotate: false
+  xy: 0, 0
+  size: 291, 93
+  orig: 291, 93
+  offset: 0, 0
+  index: 1
+sleigh
+  rotate: false
+  xy: 291, 0
+  size: 291, 93
+  orig: 291, 93
+  offset: 0, 0
+  index: 2

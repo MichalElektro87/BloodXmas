@@ -1,0 +1,19 @@
+attack_left.png
+size: 200, 83
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+attack_left
+  rotate: false
+  xy: 0, 0
+  size: 100, 83
+  orig: 100, 83
+  offset: 0, 0
+  index: 1
+attack_left
+  rotate: false
+  xy: 100, 0
+  size: 100, 83
+  orig: 100, 83
+  offset: 0, 0
+  index: 2

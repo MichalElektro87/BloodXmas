@@ -3,7 +3,7 @@ package com.bloodxmas;
 public class SantaDialog extends DialogBox {
 
 
-    public SantaDialog(BloodXmas game, Sleigh sleigh) {
+    public SantaDialog(BloodXmas game, Santa sleigh) {
         super(game, sleigh);
 
         getDialogArray().add("Ho! Ho! Ho! Merry Xmas!");

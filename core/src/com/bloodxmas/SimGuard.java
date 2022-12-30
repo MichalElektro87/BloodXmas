@@ -137,7 +137,7 @@ public class SimGuard extends GroupActor {
             enableAction1 = false;
 
             addAction(Actions.delay(2f));
-            addAction(Actions.repeat(2,
+            addAction(Actions.repeat(1,
                     Actions.sequence(Actions.rotateBy(30f,3f),
                     Actions.rotateBy(-30f,1f))));
             addAction(Actions.after(Actions.after(Actions.moveTo(game.screenWidth - game.screenWidth, getY(),2f))));

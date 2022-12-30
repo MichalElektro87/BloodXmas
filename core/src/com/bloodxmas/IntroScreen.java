@@ -26,6 +26,7 @@ public class IntroScreen implements Screen {
     private boolean simGuardOverlappedWithPresentsSign = false;
 
     public IntroScreen (final BloodXmas game) {
+
         shapeRenderer = new ShapeRenderer();
         debugClass = new DebugClass();
         this.game = game;
@@ -39,7 +40,7 @@ public class IntroScreen implements Screen {
         companySign.setPosition(game.screenWidth / 2 - companySign.getGlyphLayout(companySign.getText(), companySign.getFont()).width / 2f, 480f + companySign.getFont().getLineHeight());
         companySign.setSize(companySign.getGlyphLayout(companySign.getText(), companySign.getFont()).width, -companySign.getFont().getCapHeight());
         companySign.getRectangle().setSize(companySign.getWidth(), companySign.getHeight());
-        companySign.addAction(Actions.delay(17f));
+        companySign.addAction(Actions.delay(13f));
         companySign.addAction(Actions.after(Actions.moveTo(companySign.getX(), game.screenHeight / 2f + companySign.getGlyphLayout().height + companySign.getFont().getLineHeight(), 3f, Interpolation.bounceOut)));
 
         presentsSign = new PresentsSign(game);
