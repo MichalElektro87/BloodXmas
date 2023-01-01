@@ -9,15 +9,27 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.bloodxmas.misc.Heart;
+import com.bloodxmas.weapons.Axe;
 
 public class Player extends BaseActor {
 
     private final BloodXmas game;
     private TextureAtlas playerTextureAtlas[];
     private float playerAnimationFrameRate[];
+    private Array<Axe> axesLeft;
+    private Array<Axe> axesRight;
+    private Array<Heart> hearts;
+    private int countAxesLeft = 0;
+    private int countAxesRight = 0;
+    private int numberOfLives = 3;
+    private float heartPos = 0f;
+    private boolean drawLives = false;
     private boolean canAttack = true;
     private boolean enableControls = false;
+    private boolean dead = false;
 
     public Player(final BloodXmas game) {
         this.game = game;
@@ -48,6 +60,23 @@ public class Player extends BaseActor {
         setCurrentAnimation(3);
 
         setXVelocity(3f);
+
+        axesLeft = new Array<>();
+        for (int i = 0; i < 10; ++i) {
+            axesLeft.add(new Axe(game));
+        }
+
+        axesRight = new Array<>();
+        for (int i = 0; i < 10; ++i) {
+            axesRight.add(new Axe(game));
+        }
+
+        hearts = new Array<>();
+
+        for (int i = 0; i < numberOfLives; ++i) {
+            hearts.add(new Heart(game));
+        }
+
     }
 
     @Override
@@ -93,10 +122,14 @@ public class Player extends BaseActor {
             if (Gdx.input.isKeyJustPressed(Input.Keys.K) && !isAttackBlock()) {
                 setAttackBlock(true);
                 setElapsedTime(0f);
-                if (isDirectionLeft())
+                if (isDirectionLeft()) {
                     setCurrentAnimation(4);
-                else
+                    spawnAxesLeft();
+                }
+                else {
                     setCurrentAnimation(5);
+                    spawnAxesRight();
+                }
             }
 
             if (getElapsedTime() > getAnimation(4).getAnimationDuration()) {
@@ -106,28 +139,32 @@ public class Player extends BaseActor {
         }
     }
 
-    /*
-    public void calculateSwordCollisionRectanglePosition () {
-        leftAttackRectangle.setPosition(getX(),getY() + 30f);
-        rightAttackRectangle.setPosition(getX() + 75f, getY() + 30f);
+    public void spawnAxesLeft() {
+        getStage().addActor(axesLeft.get(countAxesLeft));
+        axesLeft.get(countAxesLeft).setPosition(getX(), getY() + getHeight() / 2);
+        axesLeft.get(countAxesLeft).setVisible(true);
+        axesLeft.get(countAxesLeft).clearActions();
+        axesLeft.get(countAxesLeft).addAction(Actions.repeat(2,Actions.rotateBy(game.randomXS128.nextFloat() * 360f,0.25f)));
+        axesLeft.get(countAxesLeft).addAction(Actions.moveTo(getX() - 300f, 40f,1f));
+        countAxesLeft++;
+
+        if (countAxesLeft == axesLeft.size)
+            countAxesLeft = 0;
     }
 
-    public Rectangle getLeftAttackRectangle() {
-        return leftAttackRectangle;
+    public void spawnAxesRight() {
+        getStage().addActor(axesRight.get(countAxesRight));
+        axesRight.get(countAxesRight).setPosition(getCenterX(), getY() + getHeight() / 2);
+        axesRight.get(countAxesRight).setVisible(true);
+        axesRight.get(countAxesRight).clearActions();
+        axesRight.get(countAxesRight).addAction(Actions.repeat(2,Actions.rotateBy(game.randomXS128.nextFloat() * (-360f),0.25f)));
+        axesRight.get(countAxesRight).addAction(Actions.moveTo(getX() + 300f, 40f,1f));
+        countAxesRight++;
+
+        if (countAxesRight == axesRight.size)
+            countAxesRight = 0;
     }
 
-    public void setLeftAttackRectangle(Rectangle leftAttackRectangle) {
-        this.leftAttackRectangle = leftAttackRectangle;
-    }
-
-    public Rectangle getRightAttackRectangle() {
-        return rightAttackRectangle;
-    }
-
-    public void setRightAttackRectangle(Rectangle rightAttackRectangle) {
-        this.rightAttackRectangle = rightAttackRectangle;
-    }
-*/
     public boolean isCanAttack() {
         return canAttack;
     }
@@ -136,10 +173,52 @@ public class Player extends BaseActor {
         this.canAttack = canAttack;
     }
 
+    public Array<Axe> getAxesLeft() {
+        return axesLeft;
+    }
+
+    public Array<Axe> getAxesRight() {
+        return axesRight;
+    }
+
+    public int getNumberOfLives() {
+        return numberOfLives;
+    }
+
+    public void setNumberOfLives(int numberOfLives) {
+        this.numberOfLives = numberOfLives;
+    }
+
+
     @Override
     public void draw(Batch batch, float parentAlpha) {
         super.draw(batch, parentAlpha);
-        setText("" + getStage().getCamera().position.x + " " + getStage().getCamera().position.y );
+        setText("" + getAxesLeft().get(0).isMotion() + " " + getAxesRight().get(0).isMotion() );
+
+        heartPos = 0;
+        for (int i = 0; i < numberOfLives; ++i) {
+            hearts.get(i).setPosition(getStage().getCamera().position.x + heartPos + 200f, getStage().getCamera().position.y + 200f);
+            hearts.get(i).draw(getStage().getBatch(),parentAlpha);
+            if (heartPos >= 150)
+                heartPos = 0;
+            heartPos+=50f;
+        }
+
+        if (numberOfLives <=0 && !dead) {
+            dead = true;
+        }
+
+    }
+
+    public void resetToDefaults () {
+        dead = false;
+        if (getScaleX() < 1f) {
+            scaleBy(0.5f);
+        }
+        setVisible(false);
+        setRotation(0f);
+        numberOfLives = 3;
+
     }
 
 }

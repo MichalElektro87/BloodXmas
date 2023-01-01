@@ -1,12 +1,40 @@
 misc.png
-size: 247, 141
+size: 247, 241
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
-clouds
+axe
   rotate: false
-  xy: 1, 1
-  size: 245, 139
-  orig: 245, 139
+  xy: 50, 0
+  size: 40, 40
+  orig: 40, 40
+  offset: 0, 0
+  index: -1
+blood
+  rotate: false
+  xy: 90, 0
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+blood_snow_ball
+  rotate: false
+  xy: 0, 0
+  size: 20, 20
+  orig: 20, 20
+  offset: 0, 0
+  index: -1
+cloud
+  rotate: false
+  xy: 0, 100
+  size: 247, 141
+  orig: 247, 141
+  offset: 0, 0
+  index: -1
+heart
+  rotate: false
+  xy: 20, 0
+  size: 30, 30
+  orig: 30, 30
   offset: 0, 0
   index: -1

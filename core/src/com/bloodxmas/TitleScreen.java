@@ -13,9 +13,11 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.scenes.scene2d.Event;
+import com.bloodxmas.misc.Blood;
 
 public class TitleScreen implements Screen {
 
@@ -27,6 +29,8 @@ public class TitleScreen implements Screen {
     private Texture buttonTexture;
     private NinePatch ninePatch;
     private TextButton startButton, exitButton;
+    private Blood blood;
+
 
     public TitleScreen(final BloodXmas game) {
         this.game = game;
@@ -34,6 +38,25 @@ public class TitleScreen implements Screen {
 
         game.player = new Player(game);
         game.santa = new Santa(game);
+
+        game.elvenArray = new Array<>();
+        game.evenDeathAnimationLeft = new Array<>();
+        game.evenDeathAnimationRight = new Array<>();
+
+        for (int i = 0; i < 20; i++) {
+            game.elvenArray.add(new Elven(game.player, game.randomXS128.nextInt(2), game.randomXS128.nextInt(2), game.randomXS128.nextFloat()*10.0f,game));
+            game.elvenArray.get(i).setAnimation();
+            game.elvenArray.get(i).setMissiles();
+        }
+
+        for (int i = 0; i < game.elvenArray.size; i++) {
+            game.evenDeathAnimationLeft.add(new EvenDeathAnimation(game));
+            game.evenDeathAnimationLeft.get(i).setVisible(false);
+            game.evenDeathAnimationLeft.get(i).setAnimation(true);
+            game.evenDeathAnimationRight.add(new EvenDeathAnimation(game));
+            game.evenDeathAnimationRight.get(i).setVisible(false);
+            game.evenDeathAnimationRight.get(i).setAnimation(false);
+        }
 
         game.player.setAnimation();
         game.santa.setAnimation();
@@ -87,6 +110,10 @@ public class TitleScreen implements Screen {
         uitable.row();
 
         stage.addActor(uitable);
+
+        blood = new Blood(game);
+        stage.addActor(blood);
+
 
         Gdx.input.setInputProcessor(stage);
 

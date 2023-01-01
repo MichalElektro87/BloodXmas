@@ -2,12 +2,16 @@ package com.bloodxmas;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.math.RandomXS128;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.utils.Array;
 
 public class BloodXmas extends Game {
 
 	public Assets assets;
 	public Player player;
 	public Santa santa;
+	public Array<Elven> elvenArray;
+	public Array<EvenDeathAnimation> evenDeathAnimationLeft;
+	public Array<EvenDeathAnimation> evenDeathAnimationRight;
 	public float screenWidth = 800f;
 	public float screenHeight = 480f;
 	public RandomXS128 randomXS128;
@@ -17,6 +21,7 @@ public class BloodXmas extends Game {
 		assets = new Assets();
 		assets.loadAssetsManager();
 		randomXS128 = new RandomXS128();
+
 
 	}
 

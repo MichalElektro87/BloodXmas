@@ -29,7 +29,7 @@ public class GameScreen1 implements Screen {
 
         for (int i = 0; i < 5; ++i) {
             clouds.add(new Cloud(game));
-            clouds.get(i).setTexture(miscTextureAtlas.findRegion("clouds"));
+            clouds.get(i).setTexture(miscTextureAtlas.findRegion("cloud"));
             stage.addActor(clouds.get(i));
         }
 

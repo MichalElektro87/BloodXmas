@@ -31,5 +31,14 @@ public class Assets {
         assetManager.load("player/animation/attack_right/attack_right.atlas",TextureAtlas.class);
         assetManager.load("player/animation/attack_left/attack_left.atlas",TextureAtlas.class);
 
+        assetManager.load("elven/animation/no_move_right/no_move_right.atlas",TextureAtlas.class);
+        assetManager.load("elven/animation/no_move_left/no_move_left.atlas",TextureAtlas.class);
+        assetManager.load("elven/animation/move_right/move_right.atlas",TextureAtlas.class);
+        assetManager.load("elven/animation/move_left/move_left.atlas",TextureAtlas.class);
+        assetManager.load("elven/animation/shoot_right/shoot_right.atlas",TextureAtlas.class);
+        assetManager.load("elven/animation/shoot_left/shoot_left.atlas",TextureAtlas.class);
+        assetManager.load("elven/animation/death_right/death_right.atlas",TextureAtlas.class);
+        assetManager.load("elven/animation/death_left/death_left.atlas",TextureAtlas.class);
+
     }
 }
