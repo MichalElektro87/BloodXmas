@@ -17,7 +17,6 @@ public class IntroScreen implements Screen {
     private SimGuard simGuard;
     private CompanySign companySign;
     private PresentsSign presentsSign;
-    private ShapeRenderer shapeRenderer;
     private DebugClass debugClass;
 
     private boolean startSimGuardFall = false;
@@ -27,7 +26,6 @@ public class IntroScreen implements Screen {
 
     public IntroScreen (final BloodXmas game) {
 
-        shapeRenderer = new ShapeRenderer();
         debugClass = new DebugClass();
         this.game = game;
         stage = new Stage(new FitViewport(800f,480f));
@@ -35,7 +33,7 @@ public class IntroScreen implements Screen {
 
 
         companySign = new CompanySign(game);
-        companySign.setFont(new BitmapFont(Gdx.files.internal("font/radiospace.fnt")));
+        companySign.setFont(new BitmapFont(Gdx.files.internal("font/titleFont60.fnt")));
 
         companySign.setPosition(game.screenWidth / 2 - companySign.getGlyphLayout(companySign.getText(), companySign.getFont()).width / 2f, 480f + companySign.getFont().getLineHeight());
         companySign.setSize(companySign.getGlyphLayout(companySign.getText(), companySign.getFont()).width, -companySign.getFont().getCapHeight());
@@ -44,7 +42,7 @@ public class IntroScreen implements Screen {
         companySign.addAction(Actions.after(Actions.moveTo(companySign.getX(), game.screenHeight / 2f + companySign.getGlyphLayout().height + companySign.getFont().getLineHeight(), 3f, Interpolation.bounceOut)));
 
         presentsSign = new PresentsSign(game);
-        presentsSign.setFont(new BitmapFont(Gdx.files.internal("font/radiospace.fnt")));
+        presentsSign.setFont(new BitmapFont(Gdx.files.internal("font/titleFont60.fnt")));
         presentsSign.setPosition(game.screenWidth + 30f, game.screenHeight / 3f);
         presentsSign.setSize(presentsSign.getGlyphLayout(presentsSign.getText(), presentsSign.getFont()).width, -presentsSign.getFont().getCapHeight());
         presentsSign.getRectangle().setSize(presentsSign.getWidth(), presentsSign.getHeight());
@@ -96,13 +94,6 @@ public class IntroScreen implements Screen {
             game.setScreen(new TitleScreen(game));
         }
 
-
-        /*shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
-        shapeRenderer.rect(simGuard.getCollisionRectangle().getX(), simGuard.getCollisionRectangle().getY(), simGuard.getCollisionRectangle().getWidth(), simGuard.getCollisionRectangle().getHeight());
-        shapeRenderer.rect(companySign.getRectangle().getX(), companySign.getRectangle().getY(), companySign.getRectangle().getWidth(), companySign.getRectangle().getHeight());
-        shapeRenderer.rect(presentsSign.getRectangle().getX(), presentsSign.getRectangle().getY(), presentsSign.getRectangle().getWidth(), presentsSign.getRectangle().getHeight());
-        shapeRenderer.end();
-        */
     }
 
     @Override

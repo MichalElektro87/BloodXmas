@@ -40,5 +40,12 @@ public class Assets {
         assetManager.load("elven/animation/death_right/death_right.atlas",TextureAtlas.class);
         assetManager.load("elven/animation/death_left/death_left.atlas",TextureAtlas.class);
 
+        assetManager.load("sound/damage1.mp3",Sound.class);
+        assetManager.load("sound/damage2.mp3", Sound.class);
+        assetManager.load("sound/damage3.mp3", Sound.class);
+        assetManager.load("sound/throw_axe.mp3", Sound.class);
+        assetManager.load("sound/ding.mp3", Sound.class);
+
+
     }
 }

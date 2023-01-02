@@ -28,7 +28,6 @@ public class Player extends BaseActor {
     private float heartPos = 0f;
     private boolean drawLives = false;
     private boolean canAttack = true;
-    private boolean enableControls = false;
     private boolean dead = false;
 
     public Player(final BloodXmas game) {
@@ -140,12 +139,19 @@ public class Player extends BaseActor {
     }
 
     public void spawnAxesLeft() {
-        getStage().addActor(axesLeft.get(countAxesLeft));
+        game.gameSound.getThrowAxe().play();
         axesLeft.get(countAxesLeft).setPosition(getX(), getY() + getHeight() / 2);
+        getStage().addActor(axesLeft.get(countAxesLeft));
         axesLeft.get(countAxesLeft).setVisible(true);
         axesLeft.get(countAxesLeft).clearActions();
         axesLeft.get(countAxesLeft).addAction(Actions.repeat(2,Actions.rotateBy(game.randomXS128.nextFloat() * 360f,0.25f)));
-        axesLeft.get(countAxesLeft).addAction(Actions.moveTo(getX() - 300f, 40f,1f));
+
+        if (getY() > 80f) {
+            axesLeft.get(countAxesLeft).addAction(Actions.moveTo(getX() - 400f, 40f,1f));
+        }
+        else {
+            axesLeft.get(countAxesLeft).addAction(Actions.moveTo(getX() - 300f, 40f, 1f));
+        }
         countAxesLeft++;
 
         if (countAxesLeft == axesLeft.size)
@@ -153,12 +159,19 @@ public class Player extends BaseActor {
     }
 
     public void spawnAxesRight() {
-        getStage().addActor(axesRight.get(countAxesRight));
+        game.gameSound.getThrowAxe().play();
         axesRight.get(countAxesRight).setPosition(getCenterX(), getY() + getHeight() / 2);
+        getStage().addActor(axesRight.get(countAxesRight));
         axesRight.get(countAxesRight).setVisible(true);
         axesRight.get(countAxesRight).clearActions();
         axesRight.get(countAxesRight).addAction(Actions.repeat(2,Actions.rotateBy(game.randomXS128.nextFloat() * (-360f),0.25f)));
-        axesRight.get(countAxesRight).addAction(Actions.moveTo(getX() + 300f, 40f,1f));
+
+        if (getY() > 80) {
+            axesRight.get(countAxesRight).addAction(Actions.moveTo(getX() + 400f, 40f, 1f));
+        }
+        else {
+            axesRight.get(countAxesRight).addAction(Actions.moveTo(getX() + 300f, 40f, 1f));
+        }
         countAxesRight++;
 
         if (countAxesRight == axesRight.size)
@@ -193,7 +206,6 @@ public class Player extends BaseActor {
     @Override
     public void draw(Batch batch, float parentAlpha) {
         super.draw(batch, parentAlpha);
-        setText("" + getAxesLeft().get(0).isMotion() + " " + getAxesRight().get(0).isMotion() );
 
         heartPos = 0;
         for (int i = 0; i < numberOfLives; ++i) {
@@ -204,21 +216,37 @@ public class Player extends BaseActor {
             heartPos+=50f;
         }
 
-        if (numberOfLives <=0 && !dead) {
-            dead = true;
-        }
-
     }
 
     public void resetToDefaults () {
+        setVisible(false);
+        setEnableControls(false);
+        clearActions();
         dead = false;
         if (getScaleX() < 1f) {
             scaleBy(0.5f);
         }
-        setVisible(false);
         setRotation(0f);
         numberOfLives = 3;
+        remove();
 
+        for (int i = 0; i <axesLeft.size; ++i) {
+            axesLeft.get(i).clearActions();
+            axesLeft.get(i).setMotion(false);
+        }
+
+        for (int i = 0; i <axesRight.size; ++i) {
+            axesRight.get(i).clearActions();
+            axesRight.get(i).setMotion(false);
+        }
+    }
+
+    public boolean isDead () {
+        return dead;
+    }
+
+    public void setDead (boolean dead) {
+        this.dead = dead;
     }
 
 }

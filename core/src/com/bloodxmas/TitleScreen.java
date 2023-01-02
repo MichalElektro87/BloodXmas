@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -36,6 +35,7 @@ public class TitleScreen implements Screen {
         this.game = game;
         stage = new Stage(new FitViewport(800f,480f));
 
+        game.gameSound = new GameSound(game);
         game.player = new Player(game);
         game.santa = new Santa(game);
 
@@ -43,7 +43,8 @@ public class TitleScreen implements Screen {
         game.evenDeathAnimationLeft = new Array<>();
         game.evenDeathAnimationRight = new Array<>();
 
-        for (int i = 0; i < 20; i++) {
+
+        for (int i = 0; i < 25; i++) {
             game.elvenArray.add(new Elven(game.player, game.randomXS128.nextInt(2), game.randomXS128.nextInt(2), game.randomXS128.nextFloat()*10.0f,game));
             game.elvenArray.get(i).setAnimation();
             game.elvenArray.get(i).setMissiles();
@@ -61,14 +62,14 @@ public class TitleScreen implements Screen {
         game.player.setAnimation();
         game.santa.setAnimation();
         titleSign = new TitleSign(game);
-        titleSign.setFont(new BitmapFont(Gdx.files.internal("font/radiospace_red.fnt")));
+        titleSign.setFont(new BitmapFont(Gdx.files.internal("font/titleFont60.fnt")));
 
         textButtonStyle = new TextButtonStyle();
         buttonTexture = new Texture(Gdx.files.internal("buttons/button1.png"));
         ninePatch = new NinePatch(buttonTexture);
         textButtonStyle.up = new NinePatchDrawable(ninePatch);
-        textButtonStyle.font = new BitmapFont(Gdx.files.internal("font/radiospace.fnt"));
-        textButtonStyle.fontColor = Color.GRAY;
+        textButtonStyle.font = new BitmapFont(Gdx.files.internal("font/titleFont60.fnt"));
+
 
         startButton = new TextButton(" Start ", textButtonStyle);
         exitButton = new TextButton(" Exit ", textButtonStyle);

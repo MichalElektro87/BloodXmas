@@ -1,5 +1,6 @@
 package com.bloodxmas;
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.RandomXS128;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
@@ -12,6 +13,7 @@ public class BloodXmas extends Game {
 	public Array<Elven> elvenArray;
 	public Array<EvenDeathAnimation> evenDeathAnimationLeft;
 	public Array<EvenDeathAnimation> evenDeathAnimationRight;
+	public GameSound gameSound;
 	public float screenWidth = 800f;
 	public float screenHeight = 480f;
 	public RandomXS128 randomXS128;
@@ -35,7 +37,7 @@ public class BloodXmas extends Game {
 		super.render();
 
 		if (assets.getAssetManager().update() && !assetsLoaded) {
-			setScreen(new TitleScreen(this));
+			setScreen(new IntroScreen(this));
 			assetsLoaded = true;
 		}
 	}
@@ -44,6 +46,7 @@ public class BloodXmas extends Game {
 	
 	@Override
 	public void dispose () {
+		assets.getAssetManager().dispose();
 		this.dispose();
 	}
 }

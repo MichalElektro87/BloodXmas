@@ -207,8 +207,8 @@ public class Elven extends BaseActor implements Disposable {
 
     public void spawnMissileLeft() {
 
-        getStage().addActor(bloodSnowBallsLeft.get(countMissilesLeft));
         bloodSnowBallsLeft.get(countMissilesLeft).setPosition(getX(), getY() + getHeight() / 2);
+        getStage().addActor(bloodSnowBallsLeft.get(countMissilesLeft));
         bloodSnowBallsLeft.get(countMissilesLeft).setVisible(true);
         bloodSnowBallsLeft.get(countMissilesLeft).clearActions();
         bloodSnowBallsLeft.get(countMissilesLeft).addAction(Actions.repeat(2,Actions.rotateBy(game.randomXS128.nextFloat() * 360f,0.25f)));
@@ -222,8 +222,8 @@ public class Elven extends BaseActor implements Disposable {
 
     public void spawnMissileRight() {
 
-        getStage().addActor(bloodSnowBallsRight.get(countMissilesRight));
         bloodSnowBallsRight.get(countMissilesRight).setPosition(getX() + getWidth(), getY() + getHeight() / 2);
+        getStage().addActor(bloodSnowBallsRight.get(countMissilesRight));
         bloodSnowBallsRight.get(countMissilesRight).setVisible(true);
         bloodSnowBallsRight.get(countMissilesRight).clearActions();
         bloodSnowBallsRight.get(countMissilesRight).addAction(Actions.repeat(2,Actions.rotateBy(game.randomXS128.nextFloat() * 360f,0.25f)));
@@ -334,11 +334,23 @@ public class Elven extends BaseActor implements Disposable {
         shootTimeSpawnLeft = 0f;
         setStop(false);
         enableShooting = true;
-        setVisible(false);
         clearActions();
         setRotation(0f);
         setOrigin(getWidth() / 2f, getHeight() / 2f);
         remove();
+        setVisible(false);
+
+        for (int i = 0; i <bloodSnowBallsLeft.size; ++i) {
+            bloodSnowBallsLeft.get(i).setVisible(false);
+            bloodSnowBallsLeft.get(i).remove();
+            bloodSnowBallsLeft.get(i).setMotion(false);
+        }
+
+        for (int i = 0; i <bloodSnowBallsRight.size; ++i) {
+            bloodSnowBallsRight.get(i).setVisible(false);
+            bloodSnowBallsRight.get(i).remove();
+            bloodSnowBallsRight.get(i).setMotion(false);
+        }
     }
 
 }

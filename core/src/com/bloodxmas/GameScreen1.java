@@ -98,11 +98,17 @@ public class GameScreen1 implements Screen {
         else santaDialog.setText("");
 
 
+        /*if (santaDialog.getElapsedTime() > 4f && !enableStageAction1) {
+            enableStageAction1 = true;
+            game.setScreen(new PlayScreen(game));
+        }*/
+
+
     }
 
     @Override
     public void resize(int width, int height) {
-
+        stage.getViewport().update(width, height, true);
     }
 
     @Override
